@@ -1517,6 +1517,8 @@ class Connector extends AbstractConnector
      * @param string      $periodStartDate Period start date, in Y-m-d format
      * @param string|null $periodEndDate   Period end date, in Y-m-d format. The max period is one year. [optional]
      *
+     * @link https://webview.webservices.nl/documentation/files/service_dutchbusiness-php.html#Dutch_Business.dutchBusinessGetDossierHistory
+     *
      * @return \stdClass <DutchBusinessDossierHistory>
      */
     public function dutchBusinessGetDossierHistory($dossierNumber, $periodStartDate, $periodEndDate = null)
@@ -1538,6 +1540,8 @@ class Connector extends AbstractConnector
      * @param string|null $oldestExtractDate Period start date, in Y-m-d format [optional]
      * @param bool        $useUpdates   Use a real-time extract [optional]
      *
+     * @link https://webview.webservices.nl/documentation/files/service_dutchbusiness-php.html#Dutch_Business.dutchBusinessUBOStartInvestigation
+     *
      * @return \stdClass <DutchBusinessUBOInvestigationToken>
      */
     public function dutchBusinessUBOStartInvestigation($dossierNumber, $oldestExtractDate = null, $useUpdates = true)
@@ -1554,6 +1558,8 @@ class Connector extends AbstractConnector
      *
      * @param string      $token   An investigation token.
      *
+     * @link https://webview.webservices.nl/documentation/files/service_dutchbusiness-php.html#Dutch_Business.dutchBusinessUBOCheckInvestigation
+     *
      * @return \stdClass <DutchBusinessUBOInvestigationStatus>
      */
     public function dutchBusinessUBOCheckInvestigation($token)
@@ -1568,6 +1574,8 @@ class Connector extends AbstractConnector
      *
      * @param string      $token    An investigation token.
      * @param bool        $includeSource    When set the original source is added to the extracts.
+     *
+     * @link https://webview.webservices.nl/documentation/files/service_dutchbusiness-php.html#Dutch_Business.dutchBusinessUBOPickupInvestigation
      *
      * @return \stdClass <DutchBusinessUBOInvestigationResult>
      */
@@ -1585,6 +1593,8 @@ class Connector extends AbstractConnector
      * @param string      $dossierNumber    Chamber of Commerce number
      * @param integer     $year     The year of the financial statement
      * @param string      $type     The type of the financial statement
+     *
+     * @link https://webview.webservices.nl/documentation/files/service_dutchbusiness-php.html#Dutch_Business.dutchBusinessGetAnnualFinancialStatement
      *
      * @return \stdClass <DutchBusinessAnnualFinancialStatement>
      */
@@ -1608,6 +1618,8 @@ class Connector extends AbstractConnector
      * @param string      $dateOfBirth    Date of birth (optional, format: Y-m-d)
      * @param int         $page    Pagination starts at 1 (optional, defaults to first page)
      *
+     * @link https://webview.webservices.nl/documentation/files/service_compliance-php.html#Compliance.complianceSearchPersons
+     *
      * @return \stdClass <CompliancePersonSearchReference>
      */
     public function complianceSearchPersons($firstName, $lastName, $dateOfBirth, $page = 1)
@@ -1626,6 +1638,8 @@ class Connector extends AbstractConnector
      *
      * @param string $dossierNumber Chamber of Commerce number
      *
+     * @link https://webview.webservices.nl/documentation/files/service_dutchbusiness-php.html#Dutch_Business.dutchBusinessGetConcernRelationsOverview
+     *
      * @return \stdClass <DutchBusinessGetConcernRelationsOverviewResult>
      */
     public function dutchBusinessGetConcernRelationsOverview($dossierNumber)
@@ -1640,6 +1654,8 @@ class Connector extends AbstractConnector
      * @param string $dossierNumber Chamber of Commerce number
      * @param bool   $includeSource  When set the original source is added to the response
      *
+     * @link https://webview.webservices.nl/documentation/files/service_dutchbusiness-php.html#Dutch_Business.dutchBusinessGetConcernRelationsDetails
+     *
      * @return \stdClass <DutchBusinessGetConcernRelationsDetailsResult>
      */
     public function dutchBusinessGetConcernRelationsDetails($dossierNumber, $includeSource)
@@ -1653,6 +1669,8 @@ class Connector extends AbstractConnector
      *
      * @param string $dossierNumber Chamber of Commerce number
      * @param bool   $allowCaching  determines whether a cached document may be returned
+     *
+     * @link https://webview.webservices.nl/documentation/files/service_dutchbusiness-php.html#Dutch_Business.dutchBusinessGetExtractDocument
      *
      * @see <DutchBusinessExtractDocumentData>
      *
@@ -1799,6 +1817,26 @@ class Connector extends AbstractConnector
     {
         return $this->getAdapter()->call('dutchBusinessGetExtractHistoryDocumentDataV2', ['extract_id' => $extractId]);
     }
+
+    /**
+     * Retrieve a historical business-extract using a business-extract identifier.
+     * Business-extract identifiers can be found using <dutchBusinessGetExtractHistory>.
+     *
+     * @param string $extractId Business-extract identifier
+     * @param bool $includeSource When set the original source is added to the response
+     *
+     * @link https://webview.webservices.nl/documentation/files/service_dutchbusiness-php.html#Dutch_Business.dutchBusinessGetExtractHistoryDocumentDataV3
+     *
+     * @return \stdClass <DutchBusinessExtractDocumentDataV3>
+     */
+    public function dutchBusinessGetExtractHistoryDocumentDataV3($extractId, $includeSource = false)
+    {
+        return $this->getAdapter()->call('dutchBusinessGetExtractHistoryDocumentDataV3', [
+            'extract_id' => $extractId,
+            'include_source' => $includeSource
+        ]);
+    }
+
 
     /**
      * Get the legal extract data and document for a business dossier.
